@@ -7,7 +7,7 @@ A per-user network traffic monitoring tool using eBPF. Captures all IPv4 and IPv
 - Linux kernel 5.8+ (for ring buffer support)
 - clang (for BPF compilation)
 - libbpf, libelf, libz development headers
-- Root privileges (for loading eBPF programs)
+- **Root privileges** (for loading eBPF programs)
 
 ### Fedora/RHEL
 
@@ -19,6 +19,14 @@ sudo dnf install clang libbpf-devel elfutils-libelf-devel zlib-devel
 
 ```bash
 sudo apt install clang libbpf-dev libelf-dev zlib1g-dev
+```
+
+### SLES
+
+**warning**: to be confirmed
+
+```bash
+sudo zypper install clang libbpf-devel libelf-devel zlib-devel
 ```
 
 ## Building
