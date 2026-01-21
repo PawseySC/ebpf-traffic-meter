@@ -1,0 +1,7 @@
+# Build artifacts
+*.o
+*.skel.h
+*.exe
+traffic_meter_user
+ipmask_tool
+tmp*
