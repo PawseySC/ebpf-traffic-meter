@@ -1,6 +1,24 @@
 # eBPF Traffic Meter
 
-A per-user network traffic monitoring tool using eBPF. Captures all IPv4 and IPv6 network traffic and logs it to per-user files with direction, bytes, and IP addresses.
+- [eBPF Traffic Meter](#ebpf-traffic-meter)
+  - [eBPF](#ebpf)
+  - [Requirements](#requirements)
+    - [Fedora/RHEL](#fedorarhel)
+    - [Ubuntu/Debian](#ubuntudebian)
+    - [SLES](#sles)
+  - [Building](#building)
+  - [Usage](#usage)
+    - [Arguments](#arguments)
+    - [Examples](#examples)
+  - [Output](#output)
+    - [Fields](#fields)
+    - [Example Output](#example-output)
+  - [Untracked IP Filtering](#untracked-ip-filtering)
+  - [Architecture](#architecture)
+  - [License](#license)
+  - [References](#references)
+
+A per-user network traffic monitoring tool using eBPF. Captures all IPv4 and IPv6 network traffic and logs it to per-user files with direction, byte count, and IP addresses.
 It is possible to specify network addressess to ignore to e.g. only capture external network traffic.
 
 ## eBPF
@@ -46,7 +64,7 @@ make clean && make
 This produces:
 - `traffic_meter.bpf.o` - eBPF program object
 - `traffic_meter_user` - User-space loader
-- `ipmask_tool` - generates bitmasks of untracked networks in network byte order, see [below](#ipfilter)
+- `ipmask_tool` - generates bitmasks of untracked networks in network byte order, see [below](#untracked-ip-filtering)
 
 ## Usage
 
@@ -107,8 +125,6 @@ out,80,2001:db8::1,2607:f8b0:4004:800::200e,1732985434.567890123,1584,1632
 in,1280,2607:f8b0:4004:800::200e,2001:db8::1,1732985434.678901234,2864,1632
 ```
 
-
-<a name="ipfilter"></a>
 ## Untracked IP Filtering 
 
 The eBPF program includes a static list of IPv4 and IPv6 network masks that are **ignored** during monitoring. 
@@ -196,7 +212,6 @@ To add new output targets (syslog, network socket, database, etc.), implement th
 
 GPL (required for eBPF programs using GPL-only helpers)
 
-<a name="references"></a>
 ## References
 
 - [Official site](https://ebpf.io/)
