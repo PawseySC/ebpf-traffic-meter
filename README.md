@@ -1,6 +1,14 @@
 # eBPF Traffic Meter
 
 A per-user network traffic monitoring tool using eBPF. Captures all IPv4 and IPv6 network traffic and logs it to per-user files with direction, bytes, and IP addresses.
+It is possible to specify network addressess to ignore to e.g. only capture external network traffic.
+
+## eBPF
+
+eBPF is a technology with origins in the Linux kernel that can run sandboxed programs in a privileged context such as the operating system kernel.
+It is used to safely and efficiently extend the capabilities of the kernel without requiring to change kernel source code or load kernel modules.
+
+It can track events and interact with the OS at any level including filesystem, GPU, network and any system call, see [references](#references).
 
 ## Requirements
 
@@ -187,3 +195,10 @@ To add new output targets (syslog, network socket, database, etc.), implement th
 ## License
 
 GPL (required for eBPF programs using GPL-only helpers)
+
+<a name="references"></a>
+## References
+
+- [Official site](https://ebpf.io/)
+- [eBPF docs](https://docs.ebpf.io/)
+- [Tutorial](https://eunomia.dev/tutorials/)
