@@ -54,7 +54,7 @@ struct ipv6_mask {
  * static const int untracked_ipv4_cnt = sizeof(untracked_ipv4) / sizeof(untracked_ipv4[0]);
 */
 
-/* 
+/*
  * Example entries (network byte order):
  *   2001:db8::/32 -> net = {0x20,0x01,0x0d,0xb8,0x00...}, prefix_len = 32
  *
@@ -78,7 +78,7 @@ struct ipv6_mask {
  */
 static __always_inline int ipv4_is_untracked(__u32 ip) {
     #pragma unroll /* no loops allowed */
-    for (int i = 0; i != untracked_ipv4_cnt; i++) { 
+    for (int i = 0; i != untracked_ipv4_cnt; i++) {
         //if (i >= untracked_ipv4_cnt) break;
         if ((ip & untracked_ipv4[i].mask) == untracked_ipv4[i].net)
             return 1;
@@ -211,7 +211,7 @@ int traffic_meter_egress(struct __sk_buff *skb)
     bpf_skb_load_bytes(skb, 12, &e->src_ip, 4);
     bpf_skb_load_bytes(skb, 16, &e->dst_ip, 4);
 
-    /* Apply untracked IP filter – drop event if src or dst matches */
+    /* Apply untracked IP filter – drop event if src and dst matches */
     /* Skip untracked IPs */
     if (ipv4_is_untracked(e->src_ip) && ipv4_is_untracked(e->dst_ip)) {
         bpf_ringbuf_discard(e, 0);
@@ -270,7 +270,7 @@ int traffic_meter_ingress(struct __sk_buff *skb)
     bpf_skb_load_bytes(skb, 12, &e->src_ip, 4);
     bpf_skb_load_bytes(skb, 16, &e->dst_ip, 4);
 
-    /* Apply untracked IP filter – drop event if src or dst matches */
+    /* Apply untracked IP filter – drop event if src and dst matches */
     /* Skip untracked IPs */
     if (ipv4_is_untracked(e->src_ip) && ipv4_is_untracked(e->dst_ip)) {
         bpf_ringbuf_discard(e, 0);
@@ -329,7 +329,7 @@ int traffic_meter_egress_v6(struct __sk_buff *skb)
     bpf_skb_load_bytes(skb, 8, &e->src_ip, 16);
     bpf_skb_load_bytes(skb, 24, &e->dst_ip, 16);
 
-    /* Apply untracked IPv6 filter – drop event if src or dst matches */
+    /* Apply untracked IPv6 filter – drop event if src and dst matches */
     /* Skip untracked IPv6 IPs */
     if (ipv6_is_untracked(e->src_ip) && ipv6_is_untracked(e->dst_ip)) {
         bpf_ringbuf_discard(e, 0);
@@ -388,7 +388,7 @@ int traffic_meter_ingress_v6(struct __sk_buff *skb)
     bpf_skb_load_bytes(skb, 8, &e->src_ip, 16);
     bpf_skb_load_bytes(skb, 24, &e->dst_ip, 16);
 
-    /* Apply untracked IPv6 filter – drop event if src or dst matches */
+    /* Apply untracked IPv6 filter – drop event if src and dst matches */
     /* Skip untracked IPv6 IPs */
     if (ipv6_is_untracked(e->src_ip) && ipv6_is_untracked(e->dst_ip)) {
         bpf_ringbuf_discard(e, 0);
