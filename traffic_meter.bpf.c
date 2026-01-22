@@ -23,6 +23,7 @@
 
 #include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
+#include <bpf/bpf_endian.h>
 
 /*
  * Static list of IPv4 networks to ignore. Each entry contains a network address
@@ -111,7 +112,6 @@ static __always_inline int ipv6_is_untracked(const __u8 ip[16]) {
     return 0;
 }
 
-#include <bpf/bpf_endian.h>
 
 /*
  * eBPF traffic meter program.
